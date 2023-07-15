@@ -1,0 +1,14 @@
+{
+  "name": "redis-readable-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "author": "ksenkso <yazunya@yandex.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "ioredis": "^5.3.2"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
