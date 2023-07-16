@@ -17,6 +17,7 @@ export class RedisRStream extends Readable {
   }
 
   _read(size) {
+    console.log('read', size);
     const self = this;
     if (self._redisPendingReads >= self._redisMaxPendingReads) return;
     const startOffset = self._redisOffset;
@@ -28,6 +29,7 @@ export class RedisRStream extends Readable {
     self._redisOffset = endOffset + 1;
     self._redisPendingReads += 1;
     const getrangeCallback = function (err, buff) {
+      console.log('callback', buff && buff.length);
       self._redisPendingReads -= 1;
       if (buff) {
         self._redisLength += buff.length;
@@ -47,11 +49,11 @@ export class RedisRStream extends Readable {
               self._redisEnded = true;
               self.push(null); // ended
             }
-            return;
+            // return;
           }
-          process.nextTick(() => {
-            self._read(size);
-          });
+          // process.nextTick(() => {
+          //   self._read(size);
+          // });
         }
       } catch (err) {
         self._redisEnded = true;
